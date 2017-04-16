@@ -21,3 +21,4 @@ erl_crash.dump
 
 .idea
 weathercli.iml
+weather_api_key.env
