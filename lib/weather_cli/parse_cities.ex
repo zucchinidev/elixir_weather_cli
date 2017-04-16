@@ -12,7 +12,9 @@ defmodule WeatherCli.ParseCities do
 
   def find_city_from_line_file(line, city) do
     map_city = Poison.Parser.parse!(line)
-    String.downcase(city) == String.downcase(map_city["name"])
+    is_spain = map_city["country"] == "ES"
+    is_found = String.downcase(city) == String.downcase(map_city["name"])
+    is_spain && is_found
   end
 
   def handle_find(nil), do: IO.puts "City not found"
