@@ -1,6 +1,5 @@
 defmodule WeatherCliTest do
   use ExUnit.Case
-  doctest WeatherCli
   import WeatherCli.CLI, only: [
     parser_args: 1,
     get_city_id_from_city_name: 1
