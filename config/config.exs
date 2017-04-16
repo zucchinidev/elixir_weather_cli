@@ -10,7 +10,7 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-#     config :weather_cli, key: :value
+config :weather_cli, API_KEY: System.get_env("WEATHER_API_KEY")
 #
 # And access this configuration in your application as:
 #
