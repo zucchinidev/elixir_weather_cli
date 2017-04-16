@@ -4,7 +4,9 @@ defmodule WeatherCli.CLI do
   that end up generating a table of weather result of a city
   """
   def run(argv) do
-    parser_args(argv)
+    argv 
+      |> parser_args
+      |> process
   end
 
   @doc """
@@ -16,9 +18,22 @@ defmodule WeatherCli.CLI do
     parse = OptionParser.parse(argv, switcher: [help: :boolean],
                                      aliases:  [h: :help       ])
     case parse do
-      { [help: true], _ } -> :help
-      { _ , [ city_id ] } -> { city_id }
+      { [help: true], _, _ } -> :help
+      { _ , [ city_id ], _ } -> { city_id }
       _ -> :help
     end
+  end
+  
+  def process(:help) do
+    IO.puts """
+    usage: weather_cli <city_id> | <city_name>
+    """
+    System.halt(0)
+  end
+
+  def process({city_id}), do: get_city_id_from_city_name({city_id})
+
+  def get_city_id_from_city_name({ city_id }) do
+    { city_id }
   end
 end
