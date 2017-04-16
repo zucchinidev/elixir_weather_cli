@@ -1,6 +1,7 @@
 # WeatherCli
 
-**TODO: Add description**
+**Handle the command line parsing and the dispatch to the various functions
+    that end up generating a table of weather result of a city**
 
 ## Installation
 
