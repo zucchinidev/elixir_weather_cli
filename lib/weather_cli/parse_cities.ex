@@ -5,9 +5,9 @@ defmodule WeatherCli.ParseCities do
   end
   
   def find_city(query) do
-  File.stream!(get_file_path())
-    |> Enum.find(&find_city_from_line_file(&1, query))
-    |> handle_find
+    File.stream!(get_file_path())
+      |> Enum.find(&find_city_from_line_file(&1, query))
+      |> handle_find
   end
 
   def find_city_from_line_file(line, city) do
@@ -15,15 +15,15 @@ defmodule WeatherCli.ParseCities do
     String.downcase(city) == String.downcase(map_city["name"])
   end
 
-  defp handle_find(nil), do: IO.puts "City not found"
-  defp handle_find(city) do
+  def handle_find(nil), do: IO.puts "City not found"
+  def handle_find(city) do
     city
       |> Poison.Parser.parse
       |> handle_parse
   end
 
-  defp handle_parse({:ok, city}), do: IO.inspect city
-  defp handle_parse({:error, _}) do
+  def handle_parse({:ok, city}), do: city
+  def handle_parse({:error, _}) do
     raise "Upps, an error has occurred"
   end
 
