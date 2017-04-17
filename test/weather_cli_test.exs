@@ -2,7 +2,7 @@ defmodule WeatherCliTest do
   use ExUnit.Case
   import WeatherCli.CLI, only: [
     parser_args: 1,
-    get_city_id_from_city_name: 1
+    get_city_from_city_name: 1
   ]
 
   test ":help returned by option parsing with -h and --help options" do
@@ -11,10 +11,11 @@ defmodule WeatherCliTest do
   end
 
   test "one values returned if one given" do
-    assert parser_args(["madrid"]) == { "madrid" }
+    assert parser_args(["madrid"]) == "madrid"
   end
 
-  test "transform city name to city id" do
-    assert get_city_id_from_city_name({ "madrid" }) == {"madrid"}
+  test "should return a city map search by city name" do
+    city = get_city_from_city_name("jjdjdjd")
+    assert city ==
   end
 end

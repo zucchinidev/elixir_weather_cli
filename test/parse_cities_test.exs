@@ -1,20 +1,14 @@
 defmodule WeatherCli.ParseCitiesTest do
   use ExUnit.Case
-  import ExUnit.CaptureIO
+
   import WeatherCli.ParseCities, only: [
     find_city: 1,
-    find_city_from_line_file: 2,
-    handle_find: 1,
-    handle_parse: 1,
-    get_file_path: 0
+    handle_find: 1
   ]
 
   test "show message City not found with option with nil value" do
-    result = capture_io(fn ->
-      handle_find(nil)
-    end)
-
-    assert result == "City not found\n"
+    result = handle_find(nil)
+    assert result == { :error, "City not found" }
   end
 
 
@@ -34,14 +28,16 @@ defmodule WeatherCli.ParseCitiesTest do
   end
 
   defp get_mock_city do
-    %{
-      "name" => "Madrid",
-      "country" => "ES",
-      "_id" => 6359304,
-      "coord" => %{
-                    "lat" => 40.489349,
-                    "lon" => -3.68275
-                 }
+    {:ok,
+      %{
+        "name" => "Madrid",
+        "country" => "ES",
+        "_id" => 6359304,
+        "coord" => %{
+                      "lat" => 40.489349,
+                      "lon" => -3.68275
+                   }
+      }
     }
   end
 
