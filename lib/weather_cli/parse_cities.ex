@@ -17,14 +17,14 @@ defmodule WeatherCli.ParseCities do
     is_spain && is_found
   end
 
-  def handle_find(nil), do: IO.puts "City not found"
+  def handle_find(nil), do: { :error, "City not found" }
   def handle_find(city) do
     city
       |> Poison.Parser.parse
       |> handle_parse
   end
 
-  def handle_parse({:ok, city}), do: city
+  def handle_parse({:ok, city}), do: { :ok, city }
   def handle_parse({:error, _}) do
     raise "Upps, an error has occurred"
   end
