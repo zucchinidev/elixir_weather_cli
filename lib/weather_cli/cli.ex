@@ -1,4 +1,6 @@
 defmodule WeatherCli.CLI do
+  alias WeatherCli.ParseCities
+  alias WeatherCli.Http
   @moduledoc """
   Handle the command line parsing and the dispatch to the various functions
   that end up generating a table of weather result of a city
@@ -19,7 +21,7 @@ defmodule WeatherCli.CLI do
                                      aliases:  [h: :help       ])
     case parse do
       { [help: true], _, _ } -> :help
-      { _ , [ city_id ], _ } -> { city_id }
+      { _ , [ city ], _ } -> city
       _ -> :help
     end
   end
@@ -31,9 +33,17 @@ defmodule WeatherCli.CLI do
     System.halt(0)
   end
 
-  def process({city_id}), do: get_city_id_from_city_name({city_id})
+  def process(city), do: get_city_from_city_name(city)
 
-  def get_city_id_from_city_name({ city_id }) do
-    { city_id }
+  def get_city_from_city_name(query_city) do
+    ParseCities.init_search(query_city) |> process_city
+  end
+  
+  def process_city({ :error, message }) do
+    IO.puts message
+    System.halt(0)
+  end
+  def process_city({ :ok, city }) do
+    Http.fetch_city_weather(city)
   end
 end
