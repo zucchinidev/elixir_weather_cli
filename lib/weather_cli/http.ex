@@ -5,7 +5,6 @@ defmodule WeatherCli.Http do
  require Logger
 
   def fetch_city_weather(city) do
-#  IO.inspect city
     url = weather_url(city["_id"])
     Logger.info "Fetching city name #{city["name"]}"
     HTTPoison.get(url)
