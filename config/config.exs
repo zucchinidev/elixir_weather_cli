@@ -11,6 +11,9 @@ use Mix.Config
 # You can configure for your application as:
 #
 config :weather_cli, API_KEY: System.get_env("WEATHER_API_KEY")
+config :weather_cli, weather_url: "http://api.openweathermap.org/data/2.5/weather?APPID="
+config :logger, compile_time_purge_level: :info
+
 #
 # And access this configuration in your application as:
 #
